@@ -102,17 +102,18 @@ class Player {
   /// {@macro player}
   Player({
     PlayerConfiguration configuration = const PlayerConfiguration(),
+    Map<String, String> additionalProperties = const {},
   }) {
     if (UniversalPlatform.isWindows) {
-      platform = NativePlayer(configuration: configuration);
+      platform = NativePlayer(configuration: configuration, additionalProperties: additionalProperties);
     } else if (UniversalPlatform.isLinux) {
-      platform = NativePlayer(configuration: configuration);
+      platform = NativePlayer(configuration: configuration, additionalProperties: additionalProperties);
     } else if (UniversalPlatform.isMacOS) {
-      platform = NativePlayer(configuration: configuration);
+      platform = NativePlayer(configuration: configuration, additionalProperties: additionalProperties);
     } else if (UniversalPlatform.isIOS) {
-      platform = NativePlayer(configuration: configuration);
+      platform = NativePlayer(configuration: configuration, additionalProperties: additionalProperties);
     } else if (UniversalPlatform.isAndroid) {
-      platform = NativePlayer(configuration: configuration);
+      platform = NativePlayer(configuration: configuration, additionalProperties: additionalProperties);
     } else if (UniversalPlatform.isWeb) {
       platform = WebPlayer(configuration: configuration);
     }

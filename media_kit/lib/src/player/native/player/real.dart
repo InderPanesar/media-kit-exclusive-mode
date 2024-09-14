@@ -58,9 +58,9 @@ void nativeEnsureInitialized({String? libmpv}) {
 /// {@endtemplate}
 class NativePlayer extends PlatformPlayer {
   /// {@macro native_player}
-  NativePlayer({required super.configuration})
+  NativePlayer({required super.configuration, required Map<String, String> additionalProperties})
       : mpv = generated.MPV(DynamicLibrary.open(NativeLibrary.path)) {
-    future = _create()
+    future = _create(additionalProperties)
       ..then((_) {
         try {
           configuration.ready?.call();
@@ -2460,7 +2460,7 @@ class NativePlayer extends PlatformPlayer {
     }
   }
 
-  Future<void> _create() {
+  Future<void> _create(Map<String, String> additionalProperties) {
     return lock.synchronized(() async {
       // The options which must be set before [MPV.mpv_initialize].
       final options = <String, String>{
@@ -2576,6 +2576,8 @@ class NativePlayer extends PlatformPlayer {
           'secondary-sub-visibility': configuration.libass ? 'yes' : 'no',
         },
       );
+
+      properties.addAll(additionalProperties);
 
       if (test) {
         properties['vo'] = 'null';
